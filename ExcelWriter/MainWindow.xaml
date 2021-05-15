@@ -9,5 +9,8 @@
     <Grid>
         <Label Content="Open File:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" FontSize="24"/>
         <Button Content="Browse" HorizontalAlignment="Left" Margin="135,22,0,0" VerticalAlignment="Top" Width="100" FontSize="16" Click="Button_Click"/>
+        <Label Content="Timer:" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="120" FontSize="24"/>
+        <Button Content="Start" HorizontalAlignment="Left" Margin="135,100,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
+        <Button Content="Stop" HorizontalAlignment="Left" Margin="270,100,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
     </Grid>
 </Window>

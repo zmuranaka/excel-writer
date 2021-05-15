@@ -15,7 +15,9 @@ namespace MicrosoftExcelFileHandler
                 Excel.Workbook workbook = app.Workbooks.Add();
                 Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Sheets[1];
 
-                ReadOldData(app, worksheet, filename); // Grab the old data from the worksheet using the ReadOldData method
+                // Read the old data from the worksheet and write the current date to the first column in the next available row
+                int nextAvailableRow = ReadOldData(app, worksheet, filename);
+                worksheet.Cells[nextAvailableRow, 1] = DateTime.Now.ToShortDateString();
 
                 app.ActiveWorkbook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookDefault); // Resave the workbook as the same filename
 
@@ -25,7 +27,8 @@ namespace MicrosoftExcelFileHandler
         }
 
         // Reads the old data from the Excel document and adds it to the argument worksheet
-        private static void ReadOldData(Excel.Application app, Excel.Worksheet worksheet, string fileName)
+        // Returns the number of rows + 1, which indicates the next row to be written
+        private static int ReadOldData(Excel.Application app, Excel.Worksheet worksheet, string fileName)
         {
             // Open up a separate worksheet and workbook
             Excel.Workbook oldWorkbook = app.Workbooks.Open(fileName);
@@ -48,6 +51,7 @@ namespace MicrosoftExcelFileHandler
             }
 
             oldWorkbook.Close();
+            return numRows+1;
         }
     }
 }
