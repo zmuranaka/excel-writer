@@ -1,6 +1,13 @@
 ﻿using System;
 using Excel = Microsoft.Office.Interop.Excel;
 
+/*
+ * Resources:
+ * https://www.wpf-tutorial.com/dialogs/the-openfiledialog/
+ * https://www.delftstack.com/howto/csharp/write-to-excel-in-csharp/
+ * https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interop/how-to-access-office-onterop-objects
+ * http://csharpexamples.com/c-read-data-excel-file/
+ */
 namespace MicrosoftExcelFileHandler
 {
     public class ExcelFileHandler
@@ -18,6 +25,8 @@ namespace MicrosoftExcelFileHandler
                 // Read the old data from the worksheet and write the current date to the first column in the next available row
                 int nextAvailableRow = ReadOldData(app, worksheet, filename);
                 worksheet.Cells[nextAvailableRow, 1] = DateTime.Now.ToShortDateString();
+
+                worksheet.Columns.AutoFit(); // Autofit all of the columns in the worksheet
 
                 app.ActiveWorkbook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookDefault); // Resave the workbook as the same filename
 
