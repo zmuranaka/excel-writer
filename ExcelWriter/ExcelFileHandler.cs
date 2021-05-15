@@ -15,9 +15,9 @@ namespace MicrosoftExcelFileHandler
                 Excel.Workbook workbook = app.Workbooks.Add();
                 Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Sheets[1];
 
-                ReadOldData(worksheet, filename); // Grab the old data from the worksheet using the ReadOldData method
+                ReadOldData(app, worksheet, filename); // Grab the old data from the worksheet using the ReadOldData method
 
-                app.ActiveWorkbook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookDefault);
+                app.ActiveWorkbook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookDefault); // Resave the workbook as the same filename
 
                 workbook.Close();
                 app.Quit();
@@ -25,36 +25,29 @@ namespace MicrosoftExcelFileHandler
         }
 
         // Reads the old data from the Excel document and adds it to the argument worksheet
-        private static void ReadOldData(Excel.Worksheet worksheet, string fileName)
+        private static void ReadOldData(Excel.Application app, Excel.Worksheet worksheet, string fileName)
         {
-            Excel.Application localApp = new Excel.Application(); // Open an instance of the Microsoft Excel application
-            if (localApp != null) // Run if the app was opened correctly
-            {
-                // Open up a separate worksheet and workbook
-                Excel.Workbook oldWorkbook = localApp.Workbooks.Open(fileName);
-                Excel.Worksheet oldWorksheet = (Excel.Worksheet)oldWorkbook.Sheets[1];
+            // Open up a separate worksheet and workbook
+            Excel.Workbook oldWorkbook = app.Workbooks.Open(fileName);
+            Excel.Worksheet oldWorksheet = (Excel.Worksheet)oldWorkbook.Sheets[1];
                 
-                // Grab information from the old worksheet
-                Excel.Range usedRange = oldWorksheet.UsedRange;
-                int numRows = usedRange.Rows.Count;
-                int numCols = usedRange.Columns.Count;
+            // Grab information from the old worksheet
+            int numRows = oldWorksheet.UsedRange.Rows.Count;
+            int numCols = oldWorksheet.UsedRange.Columns.Count;
 
-                worksheet.Name = oldWorksheet.Name; // Set the name of the argument worksheet to the old worksheet name
+            worksheet.Name = oldWorksheet.Name; // Set the name of the argument worksheet to the old worksheet name
 
-                // Copy all of the information from the old worksheet to the argument worksheet
-                for (int i = 1; i <= numRows; i++)
+            // Copy all of the information from the old worksheet to the argument worksheet
+            for (int row = 1; row <= numRows; row++)
+            {
+                for (int col = 1; col <= numCols; col++)
                 {
-                    for (int j = 1; j <= numCols; j++)
-                    {
-                        Excel.Range currRange = (oldWorksheet.Cells[i, j] as Excel.Range);
-                        worksheet.Cells[i, j] = currRange.Value == null ? String.Empty : currRange.Value.ToString();
-                    }
+                    Excel.Range currRange = (oldWorksheet.Cells[row, col] as Excel.Range);
+                    worksheet.Cells[row, col] = currRange.Value == null ? String.Empty : currRange.Value.ToString();
                 }
-
-                oldWorkbook.Close();
-                localApp.Quit();
             }
-            
+
+            oldWorkbook.Close();
         }
     }
 }

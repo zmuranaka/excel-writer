@@ -22,7 +22,8 @@ namespace ExcelWriter
             fileDialog.InitialDirectory = "C:\\Temp"; // The File Explorer window's starting directory is C:\Temp
             fileDialog.ShowDialog();
             string fileName = fileDialog.FileName; // Grab the filename that was opened
-            ExcelFileHandler.AppendToExcel(fileName); // Call the AppendToExcel method in the ExcelFileHandler class
+            if (!string.IsNullOrEmpty(fileName))
+                ExcelFileHandler.AppendToExcel(fileName); // Only call the AppendToExcel method if a valid file was selected
         }
     }
 }
