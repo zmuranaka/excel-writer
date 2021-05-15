@@ -18,11 +18,11 @@ namespace ExcelWriter
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "Excel Files (*.xls;*.xlsx)|*xls;*.xlsx";
-            fileDialog.InitialDirectory = "C:\\Temp";
+            fileDialog.Filter = "Excel Files (*.xls;*.xlsx)|*xls;*.xlsx"; // Only allow Microsoft Excel files to be opened
+            fileDialog.InitialDirectory = "C:\\Temp"; // The File Explorer window's starting directory is C:\Temp
             fileDialog.ShowDialog();
-            string fileName = fileDialog.FileName;
-            ExcelFileHandler.AppendToExcel(fileName);
+            string fileName = fileDialog.FileName; // Grab the filename that was opened
+            ExcelFileHandler.AppendToExcel(fileName); // Call the AppendToExcel method in the ExcelFileHandler class
         }
     }
 }
