@@ -26,12 +26,25 @@ namespace MicrosoftExcelFileHandler
                 int nextAvailableRow = ReadOldData(app, worksheet, filename);
                 worksheet.Cells[nextAvailableRow, 1] = DateTime.Now.ToShortDateString();
 
+                int numRows = worksheet.UsedRange.Rows.Count;
+                Excel.Range col1Range = (worksheet.Cells[numRows, 1] as Excel.Range);
+                col1Range.NumberFormat = "m/d/yyyy";
+
                 worksheet.Columns.AutoFit(); // Autofit all of the columns in the worksheet
 
-                app.ActiveWorkbook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookDefault); // Resave the workbook as the same filename
-
-                workbook.Close();
-                app.Quit();
+                try
+                {
+                    app.ActiveWorkbook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookDefault); // Resave the workbook as the same filename
+                }
+                catch (System.Runtime.InteropServices.COMException)
+                {
+                    throw new System.Runtime.InteropServices.COMException($"The specified file {filename} could not be saved. Perhaps it is open in another program?");
+                }
+                finally // The workbook and app will be closed regardless of whether it saved correctly
+                {
+                    workbook.Close();
+                    app.Quit();
+                }
             }
         }
 

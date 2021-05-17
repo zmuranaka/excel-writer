@@ -23,7 +23,17 @@ namespace ExcelWriter
             fileDialog.ShowDialog();
             string fileName = fileDialog.FileName; // Grab the filename that was opened
             if (!string.IsNullOrEmpty(fileName))
-                ExcelFileHandler.AppendToExcel(fileName); // Only call the AppendToExcel method if a valid file was selected
+            {
+                try
+                {
+                    ExcelFileHandler.AppendToExcel(fileName); // Only call the AppendToExcel method if a valid file was selected
+                }
+                catch (System.Runtime.InteropServices.COMException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+                
         }
     }
 }
