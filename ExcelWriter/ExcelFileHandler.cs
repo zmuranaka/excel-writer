@@ -3,10 +3,12 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 /*
  * Resources:
- * https://www.wpf-tutorial.com/dialogs/the-openfiledialog/
- * https://www.delftstack.com/howto/csharp/write-to-excel-in-csharp/
  * https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interop/how-to-access-office-onterop-objects
- * http://csharpexamples.com/c-read-data-excel-file/
+ * https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.excel.style.numberformat?view=excel-pia
+ * https://docs.microsoft.com/en-us/office/troubleshoot/excel/format-cells-settings
+ * https://stackoverflow.com/questions/9918818/how-to-change-xls-column-datatype-using-net
+ * https://stackoverflow.com/questions/40209636/epplus-number-format
+ * https://www.c-sharpcorner.com/UploadFile/mahesh/messagebox-in-wpf/
  */
 namespace MicrosoftExcelFileHandler
 {

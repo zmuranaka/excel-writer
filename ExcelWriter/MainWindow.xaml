@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExcelWriter"
         mc:Ignorable="d"
-        Title="Excel Writer" Height="450" Width="800">
-    <Grid>
-        <Label Content="Open File:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" FontSize="24"/>
-        <Button Content="Browse" HorizontalAlignment="Left" Margin="135,22,0,0" VerticalAlignment="Top" Width="100" FontSize="16" Click="Button_Click"/>
-        <Label Content="Timer:" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="120" FontSize="24"/>
-        <Button Content="Start" HorizontalAlignment="Left" Margin="135,100,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
-        <Button Content="Stop" HorizontalAlignment="Left" Margin="270,100,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
+        Title="Excel Writer" Height="300" Width="500">
+    <Grid Width="500">
+        <Label Content="Save Data to File:" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="190" FontSize="24"/>
+        <Button Content="Browse" HorizontalAlignment="Left" Margin="230,212,0,0" VerticalAlignment="Top" Width="100" FontSize="16" Click="Button_Click"/>
+        <Label Content="Timer:" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="74" FontSize="24" RenderTransformOrigin="0.649,1.856"/>
+        <Button Content="Start" HorizontalAlignment="Left" Margin="100,37,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
+        <Button Content="Stop" HorizontalAlignment="Left" Margin="230,37,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
     </Grid>
 </Window>
