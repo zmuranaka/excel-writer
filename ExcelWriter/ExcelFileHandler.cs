@@ -9,6 +9,7 @@ using Excel = Microsoft.Office.Interop.Excel;
  * https://stackoverflow.com/questions/9918818/how-to-change-xls-column-datatype-using-net
  * https://stackoverflow.com/questions/40209636/epplus-number-format
  * https://www.c-sharpcorner.com/UploadFile/mahesh/messagebox-in-wpf/
+ * https://docs.microsoft.com/en-us/dotnet/api/system.timespan.tostring?view=net-5.0
  */
 namespace MicrosoftExcelFileHandler
 {

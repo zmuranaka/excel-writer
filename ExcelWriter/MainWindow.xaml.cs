@@ -10,12 +10,16 @@ namespace ExcelWriter
     /// </summary>
     public partial class MainWindow : Window
     {
+        DateTime startTime;
+        DateTime endTime;
+        TimeSpan difference;
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Browse_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = "Excel Files (*.xls;*.xlsx)|*xls;*.xlsx"; // Only allow Microsoft Excel files to be opened
@@ -34,6 +38,20 @@ namespace ExcelWriter
                 }
             }
                 
+        }
+
+        private void Start_Click(object sender, RoutedEventArgs e)
+        {
+            lblTimer.Visibility = Visibility.Visible;
+            startTime = DateTime.Now;
+            lblTimer.Content = startTime.ToString("hh:mm:ss");
+        }
+
+        private void Stop_Click(object sender, RoutedEventArgs e)
+        {
+            endTime = DateTime.Now;
+            difference = endTime.Subtract(startTime);
+            lblTimer.Content = difference.ToString("hh\\:mm\\:ss");
         }
     }
 }

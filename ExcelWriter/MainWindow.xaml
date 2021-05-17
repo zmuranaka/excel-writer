@@ -8,9 +8,10 @@
         Title="Excel Writer" Height="300" Width="500">
     <Grid Width="500">
         <Label Content="Save Data to File:" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="190" FontSize="24"/>
-        <Button Content="Browse" HorizontalAlignment="Left" Margin="230,212,0,0" VerticalAlignment="Top" Width="100" FontSize="16" Click="Button_Click"/>
+        <Button Content="Browse" HorizontalAlignment="Left" Margin="230,212,0,0" VerticalAlignment="Top" Width="100" FontSize="16" Click="Browse_Click"/>
         <Label Content="Timer:" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="74" FontSize="24" RenderTransformOrigin="0.649,1.856"/>
-        <Button Content="Start" HorizontalAlignment="Left" Margin="100,37,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
-        <Button Content="Stop" HorizontalAlignment="Left" Margin="230,37,0,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
+        <Button Content="Start" HorizontalAlignment="Left" Margin="100,37,0,0" VerticalAlignment="Top" Width="100" FontSize="16" Click="Start_Click"/>
+        <Button Content="Stop" HorizontalAlignment="Left" Margin="230,37,0,0" VerticalAlignment="Top" Width="100" FontSize="16" Click="Stop_Click"/>
+        <Label Name="lblTimer" Content="00:00:00" HorizontalAlignment="Left" Margin="366,34,0,0" VerticalAlignment="Top" FontSize="16" Height="30" RenderTransformOrigin="0.72,0.28" Width="70"/>
     </Grid>
 </Window>
