@@ -12,6 +12,10 @@ namespace MicrosoftExcelFileHandler
 {
     public class ExcelFileHandler
     {
+        private const string DATE_FORMAT = "mm/dd/yyyy";
+        private const string TIME_FORMAT = "hh:mm AM/PM";
+        private const string DECIMAL_FORMAT = "0.00";
+
         // Appends data to the excel document specified by the filename argument
         public static void AppendToExcel(string filename)
         {
@@ -26,9 +30,12 @@ namespace MicrosoftExcelFileHandler
                 int nextAvailableRow = ReadOldData(app, worksheet, filename);
                 worksheet.Cells[nextAvailableRow, 1] = DateTime.Now.ToShortDateString();
 
-                int numRows = worksheet.UsedRange.Rows.Count;
-                Excel.Range col1Range = (worksheet.Cells[numRows, 1] as Excel.Range);
-                col1Range.NumberFormat = "m/d/yyyy";
+                // Format the columns based on the data type that they contain
+                worksheet.Columns[1].NumberFormat = DATE_FORMAT;
+                worksheet.Columns[2].NumberFormat = TIME_FORMAT;
+                worksheet.Columns[3].NumberFormat = TIME_FORMAT;
+                worksheet.Columns[4].NumberFormat = DECIMAL_FORMAT;
+                worksheet.Columns[5].NumberFormat = DECIMAL_FORMAT;
 
                 worksheet.Columns.AutoFit(); // Autofit all of the columns in the worksheet
 
