@@ -35,7 +35,7 @@ namespace ExcelWriter
                     for (int i = 0; i < sessions.Count; i++)
                     {
                         int totalSecondsInSession = (sessions[i].Hours * 3600) + (sessions[i].Minutes * 60) + sessions[i].Seconds;
-                        timeTutoring += totalSecondsInSession / 3600;
+                        timeTutoring += totalSecondsInSession / 3600m;
                     }
                     ExcelFileHandler.AppendToExcel(fileName, txtIn.Text, txtOut.Text, decimal.Parse(txtTotal.Text), timeTutoring); // Only call the AppendToExcel method if a valid file was selected
                 }
@@ -45,7 +45,7 @@ namespace ExcelWriter
                 }
                 catch (System.FormatException)
                 {
-                    MessageBox.Show($"The total {txtTotal.Text} could not be converted to a decimal. Perhaps it is formatted incorrectly?");
+                    MessageBox.Show($"The total \"{txtTotal.Text}\" could not be converted to a decimal. Perhaps it is formatted incorrectly?");
                 }
             }
                 

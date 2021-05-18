@@ -29,9 +29,14 @@ namespace MicrosoftExcelFileHandler
                 Excel.Workbook workbook = app.Workbooks.Add();
                 Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Sheets[1];
 
-                // Read the old data from the worksheet and write the current date to the first column in the next available row
-                int nextAvailableRow = ReadOldData(app, worksheet, filename);
+                int nextAvailableRow = ReadOldData(app, worksheet, filename); // Read the old data from the worksheet and get the next available row
+
+                // Write the new data in the next available row
                 worksheet.Cells[nextAvailableRow, 1] = DateTime.Now.ToShortDateString();
+                worksheet.Cells[nextAvailableRow, 2] = timeIn;
+                worksheet.Cells[nextAvailableRow, 3] = timeOut;
+                worksheet.Cells[nextAvailableRow, 4] = total;
+                worksheet.Cells[nextAvailableRow, 5] = timeTutoring;
 
                 // Format the columns based on the data type that they contain
                 worksheet.Columns[1].NumberFormat = DATE_FORMAT;
