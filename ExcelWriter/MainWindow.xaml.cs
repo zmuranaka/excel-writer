@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Collections.Generic;
 using Microsoft.Win32;
 using MicrosoftExcelFileHandler;
 
@@ -10,9 +11,9 @@ namespace ExcelWriter
     /// </summary>
     public partial class MainWindow : Window
     {
-        DateTime startTime;
-        DateTime endTime;
-        TimeSpan difference;
+        private DateTime startTime;
+        private DateTime endTime;
+        private List<TimeSpan> sessions = new List<TimeSpan>();
 
         public MainWindow()
         {
@@ -30,11 +31,21 @@ namespace ExcelWriter
             {
                 try
                 {
-                    ExcelFileHandler.AppendToExcel(fileName); // Only call the AppendToExcel method if a valid file was selected
+                    decimal timeTutoring = 0;
+                    for (int i = 0; i < sessions.Count; i++)
+                    {
+                        int totalSecondsInSession = (sessions[i].Hours * 3600) + (sessions[i].Minutes * 60) + sessions[i].Seconds;
+                        timeTutoring += totalSecondsInSession / 3600;
+                    }
+                    ExcelFileHandler.AppendToExcel(fileName, txtIn.Text, txtOut.Text, decimal.Parse(txtTotal.Text), timeTutoring); // Only call the AppendToExcel method if a valid file was selected
                 }
                 catch (System.Runtime.InteropServices.COMException ex)
                 {
                     MessageBox.Show(ex.Message);
+                }
+                catch (System.FormatException)
+                {
+                    MessageBox.Show($"The total {txtTotal.Text} could not be converted to a decimal. Perhaps it is formatted incorrectly?");
                 }
             }
                 
@@ -50,8 +61,9 @@ namespace ExcelWriter
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             endTime = DateTime.Now;
-            difference = endTime.Subtract(startTime);
+            TimeSpan difference = endTime.Subtract(startTime);
             lblTimer.Content = difference.ToString("hh\\:mm\\:ss");
+            sessions.Add(difference); // Add the difference in times to the list of sessions
         }
     }
 }

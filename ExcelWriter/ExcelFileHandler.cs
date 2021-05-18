@@ -20,7 +20,7 @@ namespace MicrosoftExcelFileHandler
         private const string DECIMAL_FORMAT = "0.00";
 
         // Appends data to the excel document specified by the filename argument
-        public static void AppendToExcel(string filename)
+        public static void AppendToExcel(string filename, string timeIn, string timeOut, decimal total, decimal timeTutoring)
         {
             Excel.Application app = new Excel.Application(); // Open an instance of the Microsoft Excel application
             if (app != null) // Run if the app was opened correctly
