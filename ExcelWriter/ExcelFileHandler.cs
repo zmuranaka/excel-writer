@@ -1,25 +1,23 @@
 ﻿using System;
 using Excel = Microsoft.Office.Interop.Excel;
 
-/*
- * Resources:
- * https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interop/how-to-access-office-onterop-objects
- * https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.excel.style.numberformat?view=excel-pia
- * https://docs.microsoft.com/en-us/office/troubleshoot/excel/format-cells-settings
- * https://stackoverflow.com/questions/9918818/how-to-change-xls-column-datatype-using-net
- * https://stackoverflow.com/questions/40209636/epplus-number-format
- * https://www.c-sharpcorner.com/UploadFile/mahesh/messagebox-in-wpf/
- * https://docs.microsoft.com/en-us/dotnet/api/system.timespan.tostring?view=net-5.0
- */
 namespace MicrosoftExcelFileHandler
 {
     public class ExcelFileHandler
     {
         private const string DATE_FORMAT = "mm/dd/yyyy";
+        private const string DAY_FORMAT = "dddd";
         private const string TIME_FORMAT = "hh:mm AM/PM";
         private const string DECIMAL_FORMAT = "0.00";
 
-        // Appends data to the excel document specified by the filename argument
+        /// <summary>
+        /// Appends data to the excel document specified by the filename argument
+        /// </summary>
+        /// <param name="filename">The name of the Excel file that the data will be saved to</param>
+        /// <param name="timeIn">The TAS clock in time</param>
+        /// <param name="timeOut">The TAS clock out time</param>
+        /// <param name="total">The TAS total hours</param>
+        /// <param name="timeTutoring">The time spent actually tutoring, calculated by the sessions</param>
         public static void AppendToExcel(string filename, string timeIn, string timeOut, decimal total, decimal timeTutoring)
         {
             Excel.Application app = new Excel.Application(); // Open an instance of the Microsoft Excel application
@@ -33,17 +31,19 @@ namespace MicrosoftExcelFileHandler
 
                 // Write the new data in the next available row
                 worksheet.Cells[nextAvailableRow, 1] = DateTime.Now.ToShortDateString();
-                worksheet.Cells[nextAvailableRow, 2] = timeIn;
-                worksheet.Cells[nextAvailableRow, 3] = timeOut;
-                worksheet.Cells[nextAvailableRow, 4] = total;
-                worksheet.Cells[nextAvailableRow, 5] = timeTutoring;
+                worksheet.Cells[nextAvailableRow, 2] = DateTime.Now.DayOfWeek.ToString();
+                worksheet.Cells[nextAvailableRow, 3] = timeIn;
+                worksheet.Cells[nextAvailableRow, 4] = timeOut;
+                worksheet.Cells[nextAvailableRow, 5] = total;
+                worksheet.Cells[nextAvailableRow, 6] = timeTutoring;
 
                 // Format the columns based on the data type that they contain
                 worksheet.Columns[1].NumberFormat = DATE_FORMAT;
-                worksheet.Columns[2].NumberFormat = TIME_FORMAT;
+                worksheet.Columns[2].NumberFormat = DAY_FORMAT;
                 worksheet.Columns[3].NumberFormat = TIME_FORMAT;
-                worksheet.Columns[4].NumberFormat = DECIMAL_FORMAT;
+                worksheet.Columns[4].NumberFormat = TIME_FORMAT;
                 worksheet.Columns[5].NumberFormat = DECIMAL_FORMAT;
+                worksheet.Columns[6].NumberFormat = DECIMAL_FORMAT;
 
                 worksheet.Columns.AutoFit(); // Autofit all of the columns in the worksheet
 
@@ -63,8 +63,13 @@ namespace MicrosoftExcelFileHandler
             }
         }
 
-        // Reads the old data from the Excel document and adds it to the argument worksheet
-        // Returns the number of rows + 1, which indicates the next row to be written
+        /// <summary>
+        /// Reads the old data from the Excel document and adds it to the argument worksheet
+        /// </summary>
+        /// <param name="app">The reference to the Microsoft Excel application opened</param>
+        /// <param name="worksheet">The reference to the worksheet being written to</param>
+        /// <param name="fileName">The name of the Excel file that the data is being read from / being written to</param>
+        /// <returns>The number of rows + 1, which indicates the next row available for writing</returns>
         private static int ReadOldData(Excel.Application app, Excel.Worksheet worksheet, string fileName)
         {
             // Open up a separate worksheet and workbook

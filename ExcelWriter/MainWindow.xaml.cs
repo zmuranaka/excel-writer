@@ -20,6 +20,11 @@ namespace ExcelWriter
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Opens up a File Explorer window and saves the data to the file selected.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Browse_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -51,13 +56,24 @@ namespace ExcelWriter
                 
         }
 
+        /// <summary>
+        /// Remembers the time that the Start button was clicked and displays it in lblTimer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            lblTimer.Visibility = Visibility.Visible;
             startTime = DateTime.Now;
             lblTimer.Content = startTime.ToString("hh:mm:ss");
         }
 
+        /// <summary>
+        /// Remembers the time that the Stop button was clicked.
+        /// Displays the difference between the start time and end time in lblTimer.
+        /// Adds the difference in times to the sessions List.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             endTime = DateTime.Now;
