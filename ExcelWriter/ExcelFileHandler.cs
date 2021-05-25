@@ -50,6 +50,7 @@ namespace MicrosoftExcelFileHandler
                 try
                 {
                     app.ActiveWorkbook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookDefault); // Resave the workbook as the same filename
+                    app.ActiveWorkbook.SaveAs("C:\\Temp\\Backup\\Summer_Tutoring_Data_Backup.xlsx", Excel.XlFileFormat.xlWorkbookDefault); // Make a backup of the file in a different location
                 }
                 catch (System.Runtime.InteropServices.COMException)
                 {
