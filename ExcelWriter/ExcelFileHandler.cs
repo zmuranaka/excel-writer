@@ -5,6 +5,9 @@ namespace MicrosoftExcelFileHandler
 {
     public class ExcelFileHandler
     {
+        /// <summary>
+        /// Const variables that define the way that the data will be written to the Excel worksheet
+        /// </summary>
         private const string DATE_FORMAT = "mm/dd/yyyy";
         private const string DAY_FORMAT = "dddd";
         private const string TIME_FORMAT = "hh:mm AM/PM";
@@ -50,7 +53,7 @@ namespace MicrosoftExcelFileHandler
                 try
                 {
                     app.ActiveWorkbook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookDefault); // Resave the workbook as the same filename
-                    app.ActiveWorkbook.SaveAs("C:\\Temp\\Backup\\Summer_Tutoring_Data_Backup.xlsx", Excel.XlFileFormat.xlWorkbookDefault); // Make a backup of the file in a different location
+                    app.ActiveWorkbook.SaveAs("C:\\Temp\\Backup\\Fall_Tutoring_Data_Backup.xlsx", Excel.XlFileFormat.xlWorkbookDefault); // Make a backup of the file in a different location
                 }
                 catch (System.Runtime.InteropServices.COMException)
                 {
@@ -76,7 +79,7 @@ namespace MicrosoftExcelFileHandler
             // Open up a separate worksheet and workbook
             Excel.Workbook oldWorkbook = app.Workbooks.Open(fileName);
             Excel.Worksheet oldWorksheet = (Excel.Worksheet)oldWorkbook.Sheets[1];
-                
+
             // Grab information from the old worksheet
             int numRows = oldWorksheet.UsedRange.Rows.Count;
             int numCols = oldWorksheet.UsedRange.Columns.Count;
